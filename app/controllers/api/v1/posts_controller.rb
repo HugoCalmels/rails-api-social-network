@@ -2,15 +2,25 @@ class Api::V1::PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
   def index
     @posts = Post.all
-    render json: @posts
+    render json: @posts, include: [:comments]
   end
 
   def show
     @post = Post.find(params[:id])
-    render json: @post
+    render json:  @post, include: [:comments]
   end
 
   def create
+
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts params
+    puts current_user.id
+
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
 
     if params[:post][:image] == ''
       @post = Post.new(
@@ -31,7 +41,7 @@ class Api::V1::PostsController < ApplicationController
 
     #@post = Post.new(post_params)
     if @post.save
-      render json: @post
+      render json: @post, include: [:comments]
     else
       render error: { error: 'Unable to create User.'}, status: 400
     end
@@ -49,6 +59,15 @@ class Api::V1::PostsController < ApplicationController
 
 
   def update
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts params
+    puts current_user.id
+    puts @post.user_id
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
     if @post && @post.user_id === current_user.id
       @post.update(post_params)
       render json: {message: 'Fact successfully updated.'}, status: 200
@@ -67,7 +86,7 @@ class Api::V1::PostsController < ApplicationController
    private
 
    def post_params
-    params.require(:post).permit(:user_id, :title, :content, :image, :id, :image_link, :image_url)
+    params.require(:post).permit(:user_id, :title, :content, :image, :id, :image_link, :image_url, :author)
    end
 
    def find_post
