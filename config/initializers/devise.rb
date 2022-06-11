@@ -10,6 +10,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   config.jwt do |jwt|
+    jwt.expiration_time = 365.day.to_i
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
   end
   # The secret key used by Devise. Devise uses this key to generate
