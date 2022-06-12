@@ -11,8 +11,9 @@ Rails.application.routes.draw do
       resources :users 
       get "latest", to: 'posts#latest'
       resources :posts do
-        
+        resources :likes
         resources :comments
+   
       end
     end
   end
