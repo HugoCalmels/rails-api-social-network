@@ -37,7 +37,7 @@ class Api::V1::CommentsController < ApplicationController
 
     #@comment = Comment.new(comment_params)
     if @post.save
-      render json: @post, include: [:comments]
+      render json: @post, include: [:comments, :likes]
     else
       render error: { error: 'Unable to create User.'}, status: 400
     end

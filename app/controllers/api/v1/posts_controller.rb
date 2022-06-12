@@ -2,12 +2,12 @@ class Api::V1::PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
   def index
     @posts = Post.all
-    render json: @posts, include: [:comments]
+    render json: @posts, include: [:comments, :likes]
   end
 
   def show
     @post = Post.find(params[:id])
-    render json:  @post, include: [:comments]
+    render json:  @post, include: [:comments, :likes]
   end
 
   def create
@@ -41,7 +41,7 @@ class Api::V1::PostsController < ApplicationController
 
     #@post = Post.new(post_params)
     if @post.save
-      render json: @post, include: [:comments]
+      render json: @post, include: [:comments, :likes]
     else
       render error: { error: 'Unable to create User.'}, status: 400
     end
