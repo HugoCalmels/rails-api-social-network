@@ -45,7 +45,7 @@ class Api::V1::PostsController < ApplicationController
       puts "IT ACTUALLY SAVED !!"
       puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
     else
-      render error: { error: errors.messages}, status: 400
+      render error: { error: 'error'}, status: 400
       puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
       puts "IT ACTUALLY SAVED !!"
       puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
