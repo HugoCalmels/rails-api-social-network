@@ -42,10 +42,16 @@ class Api::V1::PostsController < ApplicationController
     end
 
     #@post = Post.new(post_params)
-    if @post.save
+    if @post.save!
       render json: @post, include: [:comments, :likes]
+      puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+      puts "IT ACTUALLY SAVED !!"
+      puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
     else
-      render error: { error: 'Unable to create User.'}, status: 400
+      render error: { error: errors.messages}, status: 400
+      puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+      puts "IT ACTUALLY SAVED !!"
+      puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
     end
   end
 
