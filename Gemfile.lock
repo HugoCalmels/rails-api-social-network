@@ -203,7 +203,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  aws-sdk-s3 (~> 1.109)
+  aws-sdk-s3 (~> 1.114)
   bootsnap (>= 1.4.4)
   byebug
   devise
