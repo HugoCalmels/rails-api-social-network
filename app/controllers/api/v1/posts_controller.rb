@@ -35,7 +35,7 @@ class Api::V1::PostsController < ApplicationController
       @post = Post.new(post_params)
     end
 
-    @post = Post.new(post_params)
+    #@post = Post.new(post_params)
 
     #@post = Post.new(post_params)
     if @post.save!
