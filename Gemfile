@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
+gem 'mini_magick', '~> 4.11'
 ruby '3.0.0'
 gem 'devise'
 gem 'devise-jwt', '~> 0.9.0'
