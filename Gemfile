@@ -6,6 +6,7 @@ gem 'devise'
 gem 'devise-jwt', '~> 0.9.0'
 gem 'rack-cors'
 gem 'dotenv-rails'
+gem 'aws-sdk-s3', '~> 1.109'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.5'
 # Use postgresql as the database for Active Record
