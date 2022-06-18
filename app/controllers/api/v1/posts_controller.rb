@@ -32,14 +32,10 @@ class Api::V1::PostsController < ApplicationController
       author: current_user.username,
     )
     else 
-      @post = Post.new(
-      title: params[:post][:title],
-      content: params[:post][:content],
-      user_id: current_user.id,
-      author: current_user.username,
-      image: params[:post][:image]
-    )
+      @post = Post.new(post_params)
     end
+
+    @post = Post.new(post_params)
 
     #@post = Post.new(post_params)
     if @post.save!
