@@ -33,6 +33,7 @@ class Api::V1::PostsController < ApplicationController
     )
     else 
       @post = Post.new(post_params)
+      @post.user_id: current_user.id
     end
 
     #@post = Post.new(post_params)
