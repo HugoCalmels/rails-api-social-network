@@ -1,8 +1,14 @@
 require "active_support/core_ext/integer/time"
 
+#Rails.application.routes.url_helpers.rails_blob_url(obi.logo, host: "https://www.example.com")
+
+Rails.application.routes.default_url_options = {
+  host: 'https://clonebook-api.herokuapp.com'
+}
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_mailer.default_url_options = { host: 'https://clonebook-super.netlify.app/'}
   # Gmail configuration for production ( this was added manually )
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
@@ -46,7 +52,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil

@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
+gem 'mini_magick', '~> 4.11'
 ruby '3.0.0'
 gem 'devise'
 gem 'devise-jwt', '~> 0.9.0'
 gem 'rack-cors'
 gem 'dotenv-rails'
+gem 'aws-sdk-s3', '~> 1.114'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.5'
 # Use postgresql as the database for Active Record
