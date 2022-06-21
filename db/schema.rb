@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2022_06_11_135119) do
     t.bigint "user_id", null: false
     t.string "title"
     t.text "content"
+    t.boolean "has_to_be_displayed"
     t.text "image_link"
     t.string "author"
     t.datetime "created_at", precision: 6, null: false

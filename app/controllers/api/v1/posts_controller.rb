@@ -30,6 +30,7 @@ class Api::V1::PostsController < ApplicationController
       content: params[:post][:content],
       user_id: current_user.id,
       author: current_user.username,
+      has_to_be_displayed: false
     )
     else 
       @post = Post.new(
@@ -37,15 +38,38 @@ class Api::V1::PostsController < ApplicationController
       content: params[:post][:content],
       user_id: current_user.id,
       author: current_user.username,
-      image: params[:post][:image]
+      image: params[:post][:image],
+      has_to_be_displayed: false
     )
     end
+
+    puts "9999999999999999999999999999999999999"
+    puts "9999999999999999999999999999999999999"
+    puts "9999999999999999999999999999999999999"
+    puts params[:post][:has_to_be_displayed]
+    puts "9999999999999999999999999999999999999"
+    puts "9999999999999999999999999999999999999"
+    puts "9999999999999999999999999999999999999"
+
+
+
 
     #@post = Post.new(post_params)
     if @post.save
       render json: @post, include: [:comments, :likes]
     else
       render error: { error: 'Unable to create User.'}, status: 400
+    end
+  end
+
+  def removePostDisplay 
+    @post = Post.last
+    if @post && @post.user_id === current_user.id
+      @post.has_to_be_displayed = true
+      @post.save
+      render json: { message: 'Post successfully deleted.'}, status: 200
+    else 
+      render json: { error: 'Unable to delete fact.'}, status: 400
     end
   end
 
@@ -61,6 +85,22 @@ class Api::V1::PostsController < ApplicationController
 
 
   def update
+
+    if @post.id != Post.last.id
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+      puts "HAS TO BE DESTROY SHOULD RETURN TRUE HERE"
+      puts params
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+      puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+
+
+    end
+  
+    #@post = Post.last
+    #render json: PostSerializer.new(@post).serializable_hash[:data][:attributes]
     
     puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
     puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
@@ -87,7 +127,7 @@ class Api::V1::PostsController < ApplicationController
    private
 
    def post_params
-    params.require(:post).permit(:user_id, :title, :content, :image, :id, :image_link, :image_url, :author)
+    params.require(:post).permit(:user_id, :title, :content, :image, :id, :image_link, :image_url, :author, :has_to_be_displayed)
    end
 
    def find_post
