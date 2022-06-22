@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :thumbnails
+  resources :avatars
   devise_for :users,
              controllers: {
                  sessions: 'users/sessions',
@@ -11,6 +13,10 @@ Rails.application.routes.draw do
       resources :users 
       get "latest", to: 'posts#latest'
       get "removePostDisplay", to: 'posts#removePostDisplay'
+      post "createAvatar", to: 'avatars#createAvatar'
+      get "latestAvatar", to: 'avatars#latestAvatar'
+      post "createThumbnail", to: 'thumbnails#createThumbnail'
+      get "latestThumbnail", to: 'thumbnails#latestThumbnail'
       resources :posts do
         
         resources :likes
