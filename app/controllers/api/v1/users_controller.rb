@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: @post, include: [:post_images]
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:id, :username, :email, :avatar_link, :thumbnail_link)
+    params.require(:user).permit(:id, :username, :email, :avatar_link, :thumbnail_link, :post_images)
   end
 
 

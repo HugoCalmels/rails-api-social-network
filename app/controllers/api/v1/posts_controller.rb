@@ -122,7 +122,13 @@ class Api::V1::PostsController < ApplicationController
     render json: PostSerializer.new(@post).serializable_hash[:data][:attributes]
   end
 
+  def getAllPostImagesFromUser
 
+    @posts = Post.all.select{|el| el.user_id === current_user.id}
+  
+
+    render json: @posts, include: [:comments, :likes]
+  end
 
    private
 
