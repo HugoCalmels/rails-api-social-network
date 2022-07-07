@@ -124,7 +124,20 @@ class Api::V1::PostsController < ApplicationController
 
   def getAllPostImagesFromUser
 
-    @posts = Post.all.select{|el| el.user_id === current_user.id}
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts current_user.id
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
+    @posts = User.all.find_by_id(current_user.id).posts
+
+    #@posts = Post.all.select{|el| el.user_id === current_user.id}
   
 
     render json: @posts, include: [:comments, :likes]
