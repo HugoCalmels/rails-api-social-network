@@ -21,9 +21,11 @@ Rails.application.routes.draw do
        
         
             end
+            resources :profiles
       resources :invitations
       resources :friendships
       resources :post_images
+      delete "destroyMutualFriendship", to: 'friendships#destroyMutualFriendship'
       get "getAllPostImagesFromUser", to: 'posts#getAllPostImagesFromUser'
       
           get "latest", to: 'posts#latest'

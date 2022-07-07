@@ -3,17 +3,19 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     @users = User.all
-    render json: @users, include: [ :friendships, :received_invitations, :sent_invitations]
+    render json: @users, include: [ :friendships, :received_invitations, :sent_invitations, :posts]
   end
 
   def show
     @user = User.find(params[:id])
-    render json: @user, include: [ :friendships, :received_invitations, :sent_invitations]
+    render json: @user, include: [ :friendships, :received_invitations, :sent_invitations, :posts]
   end
+
+
 
   def update
     if @user.update(user_params)
-      render json: @post, include: [ :friendships, :received_invitations, :sent_invitations]
+      render json: @post, include: [ :friendships, :received_invitations, :sent_invitations, :posts]
     else
       render json: @user.errors, status: :unprocessable_entity
     end
