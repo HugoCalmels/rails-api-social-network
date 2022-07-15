@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       resources :invitations
       resources :friendships
       resources :post_images
+
+      get "getAllUsernames", to: 'users#getAllUsernames'
+      get "updateLastSeen", to: 'users#updateLastSeen'
       delete "destroyMutualFriendship", to: 'friendships#destroyMutualFriendship'
       get "getAllPostImagesFromUser", to: 'posts#getAllPostImagesFromUser'
       

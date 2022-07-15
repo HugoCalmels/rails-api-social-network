@@ -3,6 +3,7 @@ class AddProfileFieldsToUsers < ActiveRecord::Migration[6.1]
     add_column :users, :username, :string
     add_column :users, :avatar_link, :text
     add_column :users, :thumbnail_link, :text
+    add_column :users, :last_seen, :time
     
     add_index :users, :username, unique: true
   end
