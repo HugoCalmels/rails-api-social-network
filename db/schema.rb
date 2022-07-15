@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_084708) do
     t.string "username"
     t.text "avatar_link"
     t.text "thumbnail_link"
+    t.time "last_seen"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

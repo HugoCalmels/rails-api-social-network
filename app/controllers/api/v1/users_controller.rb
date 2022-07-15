@@ -21,6 +21,34 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def updateLastSeen
+
+    @user = User.all.find(current_user.id)
+    @user.last_seen = Time.now
+    @user.save
+    render json: {message: "user last_seen updated"}
+  end
+
+  def getAllUsernames
+
+    @users = User.all.collect(&:username)
+
+    render json: @users
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIII"
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
