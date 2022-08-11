@@ -49,6 +49,17 @@ class Api::V1::UsersController < ApplicationController
 
   end
 
+  def getUserByEmail
+
+    email = params[:email]+'.'+params[:format]
+ 
+
+    @user = User.all.find_by_email(email)
+
+    render json: @user
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

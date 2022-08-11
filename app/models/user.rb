@@ -16,6 +16,9 @@ class User < ApplicationRecord
 
   has_many :friendships, dependent: :delete_all
   has_many :friends, :through => :friendships, dependent: :delete_all
+
+  belongs_to :common_friendships, optional: true
+  has_one :common_friendships
  #has_many :friends
  #has_many :friendships
  #belongs_to :friends, :through => :friendships, :foreign_key => 'friend_id', optional: true

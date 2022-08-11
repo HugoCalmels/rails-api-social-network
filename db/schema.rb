@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_084708) do
+ActiveRecord::Schema.define(version: 2022_07_15_092048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 2022_06_30_084708) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "common_friendships", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_common_friendships_on_owner_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -141,6 +148,8 @@ ActiveRecord::Schema.define(version: 2022_06_30_084708) do
     t.text "avatar_link"
     t.text "thumbnail_link"
     t.time "last_seen"
+    t.bigint "common_friendship_id"
+    t.index ["common_friendship_id"], name: "index_users_on_common_friendship_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
