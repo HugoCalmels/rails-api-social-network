@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
  
   
+ 
   resources :thumbnails
   resources :avatars
   devise_for :users,
@@ -18,14 +19,15 @@ Rails.application.routes.draw do
       
       
         resources :friendships
-       
+        resources :common_friendships
         
             end
             resources :profiles
       resources :invitations
       resources :friendships
       resources :post_images
-
+      get "getUserByEmail/:email", to: 'users#getUserByEmail'
+     
       get "getAllUsernames", to: 'users#getAllUsernames'
       get "updateLastSeen", to: 'users#updateLastSeen'
       delete "destroyMutualFriendship", to: 'friendships#destroyMutualFriendship'
