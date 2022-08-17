@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
 
  
-  
- 
   resources :thumbnails
   resources :avatars
   devise_for :users,
