@@ -20,6 +20,10 @@ class Api::V1::CommentsController < ApplicationController
   puts params[:comment][:content]
   test3 = Post.all.find_by_id(params[:post_id])
   puts test3.author
+  puts current_user.username
+  puts current_user.username
+  puts current_user.username
+  puts current_user.username
   puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
   puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
   puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
@@ -28,7 +32,8 @@ class Api::V1::CommentsController < ApplicationController
     @comment = Comment.new(
       content: params[:comment][:content],
       user_id: current_user.id,
-      post_id: params[:post_id]
+      post_id: params[:post_id], 
+      author: current_user.username,
     )
 
     @post.comments.push(@comment)
@@ -37,16 +42,29 @@ class Api::V1::CommentsController < ApplicationController
 
     #@comment = Comment.new(comment_params)
     if @post.save
-      render json: @post, include: [:comments, :likes]
+      render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
     else
       render error: { error: 'Unable to create User.'}, status: 400
     end
   end
 
   def destroy
+    @post = Post.all.find_by_id(params[:post_id])
+
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts @post
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
     if @comment && @comment.user_id === current_user.id
       @comment.destroy
-      render json: { message: 'Comment successfully deleted.'}, status: 200
+      render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
     else 
       render json: { error: 'Unable to delete fact.'}, status: 400
     end
@@ -68,9 +86,11 @@ class Api::V1::CommentsController < ApplicationController
     puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
     puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
 
+    foundPost = Post.all.find_by_id(params[:post_id])
+
     if @comment
       @comment.update(comment_params)
-      render json: {message: 'Fact successfully updated.'}, status: 200
+      render json:  foundPost, include: [:likes, :user, :comments =>{:include =>:user}]
     else 
       render json: { error: 'Unable to update fact.'}, status: 400
     end

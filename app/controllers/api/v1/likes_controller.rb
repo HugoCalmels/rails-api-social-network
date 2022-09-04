@@ -39,7 +39,7 @@ class Api::V1::LikesController < ApplicationController
     else  
       @post.likes.push(@like)
       @post.save
-      render json: @post, include: [:comments, :likes]
+      render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
     end
 
 
@@ -54,9 +54,13 @@ class Api::V1::LikesController < ApplicationController
     puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    @post = Post
     if @like && @like.user_id === current_user.id
+
       @like.destroy
-      render json: { message: 'Comment successfully deleted.'}, status: 200
+      @post = Post.all.find_by_id(params[:post_id])
+      render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
+
     else 
       render json: { error: 'Unable to delete fact.'}, status: 400
     end

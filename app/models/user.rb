@@ -4,6 +4,7 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :validatable, :confirmable,
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+
   #has_one_attached :image
   has_many :posts
   has_many :comments
@@ -18,11 +19,17 @@ class User < ApplicationRecord
   has_many :friends, :through => :friendships, dependent: :delete_all
 
   belongs_to :common_friendships, optional: true
-  has_one :common_friendships
+  has_many :asso_friendships
+  has_many :common_friendships, through: :asso_friendships
+
+  belongs_to :suggestions, optional: true
+  has_many :asso_suggestions
+  has_many :suggestions, through: :asso_suggestions
  #has_many :friends
  #has_many :friendships
  #belongs_to :friends, :through => :friendships, :foreign_key => 'friend_id', optional: true
   #belongs_to :friend, :class_name => 'Friendship', :foreign_key => 'friend_id' , optional: true
  
+
 
 end

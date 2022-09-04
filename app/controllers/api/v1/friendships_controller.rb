@@ -1,9 +1,16 @@
 class Api::V1::FriendshipsController < ApplicationController
 
   def index
-    @friendships = User.find_by_id(params[:user_id]).friendships
+    puts " OOOOOOOOOOOOOO"
+    puts " OOOOOOOOOOOOOO"
+    puts " OOOOOOOOOOOOOO"
+    puts User.find_by_id(params[:user_id])
+    puts " OOOOOOOOOOOOOO"
+    puts " OOOOOOOOOOOOOO"
+    puts " OOOOOOOOOOOOOO"
+    friendships = User.find_by_id(params[:user_id]).friendships
 
-    render json: @friendships, include: [:friend]
+    render json: friendships, include: [:friend]
     # mes friendships restent bloquées dans le /user quand meme.
     #render @friendships pas mal aussi
     # a voir pk ca delete pas correctement, s'il faudrait pas faire plus de méthodes sur le controller.

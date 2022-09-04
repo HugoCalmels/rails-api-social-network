@@ -22,10 +22,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def updateLastSeen
-
     @user = User.all.find(current_user.id)
-    @user.last_seen = Time.now
+
+    @user.last_seen = params[:time]
     @user.save
+
+
     render json: {message: "user last_seen updated"}
   end
 
@@ -58,6 +60,30 @@ class Api::V1::UsersController < ApplicationController
 
     render json: @user
 
+  end
+
+  def suggestions
+    current_user_friends = current_user.friends
+    owners_ids = []
+    suggestions = []
+
+    # i have only the friends ID & Usernames
+    # i need their friendlists
+
+    res = current_user_friends
+    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+    current_user_friends.each do |friend|
+      puts"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+     puts friend.username
+     puts friend.id
+     
+     puts"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+    end
+    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+
+   
+
+    render json: res
   end
 
   private

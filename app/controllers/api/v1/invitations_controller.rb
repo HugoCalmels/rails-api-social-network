@@ -5,19 +5,22 @@ class Api::V1::InvitationsController < ApplicationController
   def index
 
     @invitations = Invitation.all.select do |invit, i|
-    invit.receiver_id = current_user.id  
-    end
-
-    @filtered_invitations = @invitations.uniq {|invit| invit.sender_id}
-
-    if @filtered_invitations.length != @invitations.length
-      Invitation.last.destroy
+    invit.receiver_id == current_user.id  
     end
 
 
 
+    #@filtered_invitations = @invitations.uniq {|invit| invit.sender_id}
+    #if @filtered_invitations.length != @invitations.length
+    #  Invitation.last.destroy
+    #end
 
-    render json: @filtered_invitations , include: [:sender]
+
+
+
+    render json: @invitations , include: [:sender]
+
+   
   end
 
   # GET /invitations/1

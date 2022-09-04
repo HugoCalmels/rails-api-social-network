@@ -3,13 +3,54 @@ class Api::V1::PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
  
   def index
-    @posts = Post.all
-    render json: @posts, include: [:comments, :likes]
+    friendsIds = current_user.friends.map {|el|el.id}
+
+    puts "AAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAA"
+    puts current_user.friends
+    puts friendsIds
+    puts "AAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAA"
+    puts "AAAAAAAAAAAAAAAA"
+
+
+
+    @posts = Post.all.filter do |post|
+      post.user_id.in?(friendsIds) || post.user_id == current_user.id
+    end
+
+  
+    @postsTest2 = Kaminari.paginate_array(@posts.reverse()).page(params[:page]).per(5)
+ 
+
+
+    render json: @postsTest2, include: [:likes, :user, :comments =>{:include =>:user}]
   end
 
   def show
     @post = Post.find(params[:id])
-    render json:  @post, include: [:comments, :likes]
+    render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
+  end
+
+  def getOnlySelectedUserPosts
+    puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    puts params
+    @user = User.all.find_by_username(params[:username])
+    puts @user.username
+     puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+     puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+     puts "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+     @posts = @user.posts
+
+
+     @postsTest2 = Kaminari.paginate_array(@posts).page(params[:page]).per(5)
+
+     render json:  @postsTest2, include: [:likes, :user, :comments =>{:include =>:user}] 
+
   end
 
   def create
@@ -56,7 +97,7 @@ class Api::V1::PostsController < ApplicationController
 
     #@post = Post.new(post_params)
     if @post.save
-      render json: @post, include: [:comments, :likes]
+      render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
     else
       render error: { error: 'Unable to create User.'}, status: 400
     end
