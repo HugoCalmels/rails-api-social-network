@@ -1,12 +1,8 @@
 class Api::V1::FriendshipsController < ApplicationController
 
   def index
-    @friendships = User.find_by_id(params[:user_id]).friendships
-
-    render json: @friendships, include: [:friend]
-    # mes friendships restent bloquées dans le /user quand meme.
-    #render @friendships pas mal aussi
-    # a voir pk ca delete pas correctement, s'il faudrait pas faire plus de méthodes sur le controller.
+    friendships = User.find_by_id(params[:user_id]).friendships
+    render json: friendships, include: [:friend]
   end
 
   def create
@@ -28,19 +24,7 @@ class Api::V1::FriendshipsController < ApplicationController
 
 
   def destroy
-    puts "HELO.....??????????????????"
-    puts "HELO.....??????????????????"
-    puts "HELO.....??????????????????"
-    puts "HELO.....??????????????????"
-    puts "HELO.....??????????????????"
-
     @friendship = Friendship.all.find_by_id(params[:id])
-
-    puts @friendship.id
-
-    puts "HELO.....??????????????????"
-    puts "HELO.....??????????????????"
-
     if @friendship.destroy 
     
       render json: {message: 'friendship destroyed !'}
@@ -50,23 +34,7 @@ class Api::V1::FriendshipsController < ApplicationController
   end
 
   def destroyMutualFriendship
-  
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts params
-    
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
- 
+
   end
 
 

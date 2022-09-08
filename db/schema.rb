@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_092048) do
+ActiveRecord::Schema.define(version: 2022_08_31_220055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,24 @@ ActiveRecord::Schema.define(version: 2022_07_15_092048) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "asso_friendships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "common_friendship_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["common_friendship_id"], name: "index_asso_friendships_on_common_friendship_id"
+    t.index ["user_id"], name: "index_asso_friendships_on_user_id"
+  end
+
+  create_table "asso_suggestions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "suggestion_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["suggestion_id"], name: "index_asso_suggestions_on_suggestion_id"
+    t.index ["user_id"], name: "index_asso_suggestions_on_user_id"
+  end
+
   create_table "avatars", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -56,6 +74,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_092048) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "author"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -64,6 +83,9 @@ ActiveRecord::Schema.define(version: 2022_07_15_092048) do
     t.bigint "owner_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "owner_username"
+    t.text "owner_avatar_link"
+    t.text "invitation"
     t.index ["owner_id"], name: "index_common_friendships_on_owner_id"
   end
 
@@ -125,6 +147,15 @@ ActiveRecord::Schema.define(version: 2022_07_15_092048) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "suggestions", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "owner_username"
+    t.text "owner_avatar_link"
+    t.index ["owner_id"], name: "index_suggestions_on_owner_id"
+  end
+
   create_table "thumbnails", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -147,9 +178,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_092048) do
     t.string "username"
     t.text "avatar_link"
     t.text "thumbnail_link"
-    t.time "last_seen"
-    t.bigint "common_friendship_id"
-    t.index ["common_friendship_id"], name: "index_users_on_common_friendship_id"
+    t.integer "last_seen"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

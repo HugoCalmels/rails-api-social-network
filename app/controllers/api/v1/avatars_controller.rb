@@ -39,17 +39,7 @@ class Api::V1::AvatarsController < ApplicationController
   end
 
   def createAvatar
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "CREATE - AVATAR -"
-    puts params
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
     @avatar = Avatar.new(avatar_params)
-
     if @avatar.save
       render json: @avatar, status: :created, location: @avatar
     else
@@ -58,15 +48,6 @@ class Api::V1::AvatarsController < ApplicationController
   end
 
   def latestAvatar
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "LATEST - AVATAR -"
-    puts params
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
     @avatar = Avatar.last
     render json: AvatarSerializer.new(@avatar).serializable_hash[:data][:attributes]
   end

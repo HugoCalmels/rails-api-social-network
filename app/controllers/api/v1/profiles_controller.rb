@@ -10,17 +10,6 @@ class Api::V1::ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts params
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     @user = User.find_by_username(params[:id])
     render json: @user, include: [ :friendships, :received_invitations, :sent_invitations, :posts]
   end

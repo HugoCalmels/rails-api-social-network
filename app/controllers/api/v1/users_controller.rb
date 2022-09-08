@@ -22,10 +22,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def updateLastSeen
-
     @user = User.all.find(current_user.id)
-    @user.last_seen = Time.now
+
+    @user.last_seen = params[:time]
     @user.save
+
+
     render json: {message: "user last_seen updated"}
   end
 
@@ -34,30 +36,24 @@ class Api::V1::UsersController < ApplicationController
     @users = User.all.collect(&:username)
 
     render json: @users
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-
   end
 
   def getUserByEmail
 
     email = params[:email]+'.'+params[:format]
- 
+    @test = User.where("email = ?", email)
 
-    @user = User.all.find_by_email(email)
-
+    @user = User.where("email = ?", email).first
     render json: @user
 
+  end
+
+  def suggestions
+    current_user_friends = current_user.friends
+    owners_ids = []
+    suggestions = []
+    res = current_user_friends
+    render json: res
   end
 
   private

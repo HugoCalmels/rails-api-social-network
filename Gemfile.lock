@@ -116,6 +116,9 @@ GEM
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (2.4.1)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -210,6 +213,7 @@ DEPENDENCIES
   devise-jwt (~> 0.9.0)
   dotenv-rails
   jsonapi-serializer (~> 2.2)
+  kaminari (~> 0.17.0)
   listen (~> 3.3)
   mini_magick (~> 4.11)
   pg (~> 1.1)

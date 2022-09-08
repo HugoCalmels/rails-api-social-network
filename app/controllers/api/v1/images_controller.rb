@@ -15,22 +15,7 @@ class Api::V1::ImagesController < ApplicationController
 
   # POST /images
   def create
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "CREATE METHOD FOR IMAGES "
-    puts params
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    
-    #@image = Image.new(image_params)
 
-    #if @image.save
-    #  render json: @image, status: :created, location: @image
-    #else
-    #  render json: @image.errors, status: :unprocessable_entity
-    #end
   end
 
   # PATCH/PUT /images/1
