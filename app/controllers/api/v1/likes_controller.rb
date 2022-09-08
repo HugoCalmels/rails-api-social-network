@@ -11,27 +11,13 @@ class Api::V1::LikesController < ApplicationController
   end
 
   def create
-
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts params
-  puts current_user.id
-  puts params[:post_id].to_i.instance_of? Fixnum
-
-
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  #puts Post.all
     @post = Post.all.find_by_id(params[:post_id])
-    puts @post.author
-    puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+
     @like = Like.new(
       user_id: current_user.id,
       post_id: params[:post_id]
     )
-    puts @post.likes.find_by_user_id(current_user.id)
+
 
      if @post.likes.any? {|like| like.user_id == current_user.id}
      
@@ -46,14 +32,6 @@ class Api::V1::LikesController < ApplicationController
   end
 
   def destroy
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts @like.user_id
-    puts current_user.id
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     @post = Post
     if @like && @like.user_id === current_user.id
 

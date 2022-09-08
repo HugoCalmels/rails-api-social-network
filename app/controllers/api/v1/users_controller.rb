@@ -36,28 +36,14 @@ class Api::V1::UsersController < ApplicationController
     @users = User.all.collect(&:username)
 
     render json: @users
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-    puts "IIIIIIIIIIIIIIIII"
-
   end
 
   def getUserByEmail
 
     email = params[:email]+'.'+params[:format]
- 
+    @test = User.where("email = ?", email)
 
-    @user = User.all.find_by_email(email)
-
+    @user = User.where("email = ?", email).first
     render json: @user
 
   end
@@ -66,23 +52,7 @@ class Api::V1::UsersController < ApplicationController
     current_user_friends = current_user.friends
     owners_ids = []
     suggestions = []
-
-    # i have only the friends ID & Usernames
-    # i need their friendlists
-
     res = current_user_friends
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    current_user_friends.each do |friend|
-      puts"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-     puts friend.username
-     puts friend.id
-     
-     puts"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-    end
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-
-   
-
     render json: res
   end
 

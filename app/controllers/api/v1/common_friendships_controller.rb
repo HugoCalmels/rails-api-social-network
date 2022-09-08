@@ -3,21 +3,14 @@ class Api::V1::CommonFriendshipsController < ApplicationController
 
   # GET /common_friendships
   def index
+    CommonFriendship.all.each do |friendship|
+      friendship.destroy
+     end
 
-      CommonFriendship.all.each do |friendship|
-    
-       friendship.destroy
-      
-      end
-
-    ## The first array 
     current_user_friends_list = current_user.friends
     owners_ids = []
-
     friends_ids= []
     res = []
-
-
 
     current_user_friends_list.each do |current_user_friend|
       friendship1 = Friendship.all.find do |el|
@@ -37,57 +30,16 @@ class Api::V1::CommonFriendshipsController < ApplicationController
         end
       end
 
-      #######################
-      # me faut une table de jointure, chaque user a un seul cf, et annule les autres...
-      #MIGRATION A FAIRE
-      #######################
-      puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-      puts "amis en commun avec : " + current_user_friend.username
      common_friends.each do |friend|
-     
       a = AssoFriendship.create(user_id: friend.id, common_friendship_id: c.id)
-      puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-      puts friend.username
-      puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
      end
-     
-     
-     #common_friends.each do |common_friend|
-       #   common_friend.common_friendship_id = c.id
-       #   common_friend.save
-       #   owners_ids.push(current_user_friend.id)
-      #end
-
-    #######################
 
     end
 
-    lddd = CommonFriendship.all.where(owner_id: [owners_ids])
-    tstt = CommonFriendship.all
 
-    test555 = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
+    commonFriendships = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
 
-    # jarrive rentrer plusieurs users dans 1 cf, mais je dois jouer avec les friendship_id ?
-    #u = User.last
-    #u2 = User.first
-    #cay = CommonFriendship.last
-    #u.common_friendship_id =cay.id
-    #u2.common_friendship_id =cay.id
-    #u2.save
-    #u.save
-    #cay.save
-
-    #CommonFriendship.all.each do |friendship|
-     #if friendship.users.length == 0 
-    #   friendship.destroy
-     # end
-     # end
-
-    # lets say current user & user 2
-
-   
-
-    render json: test555, include: [:users]
+    render json: commonFriendships, include: [:users]
   end
 
   #################################################################################
@@ -95,29 +47,13 @@ class Api::V1::CommonFriendshipsController < ApplicationController
   def selectedUserCM
 
     CommonFriendship.all.each do |friendship|
-    
       friendship.destroy
-     
      end
-
-   ## The first array 
-
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-   puts params
    user = User.find_by_username(params[:username])
-
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-   puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@"
    current_user_friends_list = user.friends
    owners_ids = []
-
    friends_ids= []
    res = []
-
-
 
    current_user_friends_list.each do |current_user_friend|
      friendship1 = Friendship.all.find do |el|
@@ -137,57 +73,14 @@ class Api::V1::CommonFriendshipsController < ApplicationController
        end
      end
 
-     #######################
-     # me faut une table de jointure, chaque user a un seul cf, et annule les autres...
-     #MIGRATION A FAIRE
-     #######################
-     puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-     puts "amis en commun avec : " + current_user_friend.username
     common_friends.each do |friend|
-    
      a = AssoFriendship.create(user_id: friend.id, common_friendship_id: c.id)
-     puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-     puts friend.username
-     puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     end
-    
-    
-    #common_friends.each do |common_friend|
-      #   common_friend.common_friendship_id = c.id
-      #   common_friend.save
-      #   owners_ids.push(current_user_friend.id)
-     #end
-
-   #######################
-
    end
 
-   lddd = CommonFriendship.all.where(owner_id: [owners_ids])
-   tstt = CommonFriendship.all
+   commonFriendships = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
 
-   test555 = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
-
-   # jarrive rentrer plusieurs users dans 1 cf, mais je dois jouer avec les friendship_id ?
-   #u = User.last
-   #u2 = User.first
-   #cay = CommonFriendship.last
-   #u.common_friendship_id =cay.id
-   #u2.common_friendship_id =cay.id
-   #u2.save
-   #u.save
-   #cay.save
-
-   #CommonFriendship.all.each do |friendship|
-    #if friendship.users.length == 0 
-   #   friendship.destroy
-    # end
-    # end
-
-   # lets say current user & user 2
-
-  
-
-   render json: test555, include: [:users]
+   render json: commonFriendships, include: [:users]
   end
 
 
@@ -240,15 +133,8 @@ class Api::V1::CommonFriendshipsController < ApplicationController
 
           el.id != some_friend.id
         end
-        
-  
       end
-
     end
-
-
-   
-
     render json: common_friends
   end
 

@@ -39,15 +39,6 @@ class Api::V1::ThumbnailsController < ApplicationController
   end
 
   def createThumbnail
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "CREATE - AVATAR -"
-    puts params
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
     @thumbnail = Thumbnail.new(thumbnail_params)
 
     if @thumbnail.save
@@ -58,15 +49,6 @@ class Api::V1::ThumbnailsController < ApplicationController
   end
 
   def latestThumbnail
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "LATEST - AVATAR -"
-    puts params
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    puts "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
     @thumbnail = Thumbnail.last
     render json: ThumbnailSerializer.new(@thumbnail).serializable_hash[:data][:attributes]
   end

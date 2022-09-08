@@ -4,21 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts resource.email
-    puts _opts
-    puts resource.id.present?
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%"
+
   
       if User.all.find_by(email:resource.email)
         @test = User.all.find_by(email:resource.email)

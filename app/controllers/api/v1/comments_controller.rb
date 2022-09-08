@@ -11,36 +11,15 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def create
-
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts current_user.id
-  puts params[:post_id]
-  puts params[:comment][:content]
-  test3 = Post.all.find_by_id(params[:post_id])
-  puts test3.author
-  puts current_user.username
-  puts current_user.username
-  puts current_user.username
-  puts current_user.username
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
-  puts "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
     @post = Post.all.find_by_id(params[:post_id])
-
     @comment = Comment.new(
       content: params[:comment][:content],
       user_id: current_user.id,
       post_id: params[:post_id], 
       author: current_user.username,
     )
-
     @post.comments.push(@comment)
 
-    #puts @post.comments
-
-    #@comment = Comment.new(comment_params)
     if @post.save
       render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
     else
@@ -50,18 +29,6 @@ class Api::V1::CommentsController < ApplicationController
 
   def destroy
     @post = Post.all.find_by_id(params[:post_id])
-
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts @post
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-
     if @comment && @comment.user_id === current_user.id
       @comment.destroy
       render json:  @post, include: [:likes, :user, :comments =>{:include =>:user}]
@@ -71,23 +38,8 @@ class Api::V1::CommentsController < ApplicationController
 
   end
 
-
   def update
-
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "ENTERING UPDATE METHOD"
-    puts params
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-    puts "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-
     foundPost = Post.all.find_by_id(params[:post_id])
-
     if @comment
       @comment.update(comment_params)
       render json:  foundPost, include: [:likes, :user, :comments =>{:include =>:user}]
