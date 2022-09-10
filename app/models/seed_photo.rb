@@ -1,0 +1,2 @@
+class SeedPhoto < ApplicationRecord
+end

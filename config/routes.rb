@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :seed_photos
   resources :thumbnails
   resources :avatars
   devise_for :users,

@@ -3,84 +3,47 @@ class Api::V1::CommonFriendshipsController < ApplicationController
 
   # GET /common_friendships
   def index
-    CommonFriendship.all.each do |friendship|
-      friendship.destroy
-     end
-
-    current_user_friends_list = current_user.friends
-    owners_ids = []
-    friends_ids= []
-    res = []
-
-    current_user_friends_list.each do |current_user_friend|
-      friendship1 = Friendship.all.find do |el|
-        current_user.id == el.user_id && el.friend_id == current_user_friend.id 
-      end
-      friendship2 = Friendship.all.find do |el|
-        current_user_friend.id  == el.user_id && el.friend_id == current_user.id 
-      end
-      c = CommonFriendship.create(owner: current_user_friend, owner_username: current_user_friend.username, owner_avatar_link: current_user_friend.avatar_link, invitation:friendship1.id.to_s+","+friendship2.id.to_s)
-      common_friends = []
-
-      current_user_friend.friends.each do |some_friend|
-        current_user_friends_list.each do |friend|
-          if friend.id == some_friend.id
-            common_friends.push(friend)
-          end
+ 
+    data = []
+    current_user_list_of_friends_ids = current_user.friends.map {|el|el.id}
+  
+     current_user.friends.map do |friend|
+        res = friend.friends.filter do |el|
+          el.id != current_user.id &&  current_user_list_of_friends_ids.exclude?(el.id)
         end
-      end
-
-     common_friends.each do |friend|
-      a = AssoFriendship.create(user_id: friend.id, common_friendship_id: c.id)
+        guy = {owner_id: friend.id, owner_username: friend.username, owner_avatar_link: friend.avatar_link}
+        guy[:users] = res
+        data.push(guy)
      end
-
-    end
-
-
-    commonFriendships = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
-
-    render json: commonFriendships, include: [:users]
+  
+     render json: data
   end
 
   #################################################################################
 
   def selectedUserCM
 
-    CommonFriendship.all.each do |friendship|
-      friendship.destroy
-     end
-   user = User.find_by_username(params[:username])
-   current_user_friends_list = user.friends
-   owners_ids = []
-   friends_ids= []
-   res = []
+  
+  selected_user = User.find_by_username(params[:username])
+  data = []
+  selected_user_list_of_friends_ids = selected_user.friends.map {|el|el.id}
+  current_user_list_of_friends_ids = current_user.friends.map {|el|el.id}
 
-   current_user_friends_list.each do |current_user_friend|
-     friendship1 = Friendship.all.find do |el|
-      user.id == el.user_id && el.friend_id == current_user_friend.id 
-     end
-     friendship2 = Friendship.all.find do |el|
-       current_user_friend.id  == el.user_id && el.friend_id == user.id 
-     end
-     c = CommonFriendship.create(owner: current_user_friend, owner_username: current_user_friend.username, owner_avatar_link: current_user_friend.avatar_link, invitation:friendship1.id.to_s+","+friendship2.id.to_s)
-     common_friends = []
-
-     current_user_friend.friends.each do |some_friend|
-       current_user_friends_list.each do |friend|
-         if friend.id == some_friend.id
-           common_friends.push(friend)
-         end
-       end
-     end
-
-    common_friends.each do |friend|
-     a = AssoFriendship.create(user_id: friend.id, common_friendship_id: c.id)
-    end
+   selected_user.friends.map do |friend|
+      guy = {owner_id: friend.id, owner_username: friend.username, owner_avatar_link: friend.avatar_link}
+      res = friend.friends.filter do |el|
+        el.id != current_user.id &&  selected_user_list_of_friends_ids.exclude?(el.id)
+      end
+      if current_user_list_of_friends_ids.include?(friend.id)
+        guy[:users] = res
+      else 
+        guy[:users] = []
+      end
+      data.push(guy)
    end
 
-   commonFriendships = CommonFriendship.all.sort_by { |obj| obj.users.length }.reverse
+   render json: data
 
-   render json: commonFriendships, include: [:users]
   end
 
 

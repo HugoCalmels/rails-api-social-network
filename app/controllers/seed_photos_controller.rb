@@ -1,0 +1,2 @@
+class SeedPhotosController < ApplicationController
+end
