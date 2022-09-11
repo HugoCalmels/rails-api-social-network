@@ -30,6 +30,7 @@ class Api::V1::CommonFriendshipsController < ApplicationController
   current_user_list_of_friends_ids = current_user.friends.map {|el|el.id}
 
    selected_user.friends.map do |friend|
+      if selected_user.id != friend.id
       guy = {owner_id: friend.id, owner_username: friend.username, owner_avatar_link: friend.avatar_link}
       res = friend.friends.filter do |el|
         el.id != current_user.id &&  selected_user_list_of_friends_ids.exclude?(el.id)
@@ -40,6 +41,7 @@ class Api::V1::CommonFriendshipsController < ApplicationController
         guy[:users] = []
       end
       data.push(guy)
+    end
    end
 
    render json: data

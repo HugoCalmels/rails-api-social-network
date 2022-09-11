@@ -9,35 +9,38 @@
 require 'rest-client'
 
 
-photos_1 = RestClient.get("https://picsum.photos/v2/list?page=2&limit=100")
-photos_array = JSON.parse(photos_1)
+##
+heros = RestClient.get("https://api-images-seeder-rails.herokuapp.com/hero_images")
+heros_array = JSON.parse(heros)
+avatars = RestClient.get("https://api-images-seeder-rails.herokuapp.com/avatar_images")
+avatars_array = JSON.parse(avatars)
+posts = RestClient.get("https://api-images-seeder-rails.herokuapp.com/post_images")
+posts_array = JSON.parse(posts)
+## 
 
-puts "%%%%%%%%%%%%%%%%%%%%%%%%%"
-puts photos_array[0]["download_url"]
-puts "%%%%%%%%%%%%%%%%%%%%%%%%%"
-
-
-5.times do |index|
+index3 = 0
+50.times do |index|
 
   u = User.new(
     username: Faker::Name.unique.first_name,
     email: Faker::Internet.unique.email,
     password: "123123",
     password_confirmation: "123123",
-    avatar_link: "",
-    thumbnail_link: "https://api.lorem.space/image/movie?w=150&h=220"
+    avatar_link: avatars_array[index]["image_link"],
+    thumbnail_link: heros_array[index]["image_link"]
   )
   u.skip_confirmation!
   u.save
-  10.times do |index|
+  10.times do |index2|
     p = Post.new(
       content: Faker::Lorem.sentence(word_count: 50),
-      image_link: photos_array[index]["download_url"],
+      image_link: posts_array[index3]["image_link"] ,
       user_id: u.id,
       author: u.username,
       has_to_be_displayed: false
     )
     p.save
+    index3 += 1
     puts p.errors.messages
   end
 
