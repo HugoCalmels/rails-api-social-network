@@ -11,6 +11,17 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, include: [ :friendships, :received_invitations, :sent_invitations, :posts]
   end
 
+  def receiveRandomInvitations
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+    puts "TESTTTTTTTTTT"
+  end
+
 
 
   def update

@@ -9,7 +9,7 @@ class Api::V1::CommonFriendshipsController < ApplicationController
   
      current_user.friends.map do |friend|
         res = friend.friends.filter do |el|
-          el.id != current_user.id &&  current_user_list_of_friends_ids.exclude?(el.id)
+          el.id != current_user.id &&  current_user_list_of_friends_ids.include?(el.id) && el.id != friend.id
         end
         guy = {owner_id: friend.id, owner_username: friend.username, owner_avatar_link: friend.avatar_link}
         guy[:users] = res
@@ -32,11 +32,11 @@ class Api::V1::CommonFriendshipsController < ApplicationController
    selected_user.friends.map do |friend|
       if selected_user.id != friend.id
       guy = {owner_id: friend.id, owner_username: friend.username, owner_avatar_link: friend.avatar_link}
-      res = friend.friends.filter do |el|
-        el.id != current_user.id &&  selected_user_list_of_friends_ids.exclude?(el.id)
+      res = friend.friends.filter do |el| # euhh
+        el.id != current_user.id &&  current_user_list_of_friends_ids.include?(el.id) && el.id != friend.id
       end
-      if current_user_list_of_friends_ids.include?(friend.id)
-        guy[:users] = res
+      if current_user_list_of_friends_ids.include?(friend.id) 
+        guy[:users] = res.uniq {|el|el.id}
       else 
         guy[:users] = []
       end

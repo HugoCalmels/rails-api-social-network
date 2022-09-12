@@ -10,6 +10,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
+
+    3.times do |i|
+      random_user = User.find_by_id(rand(1..50))
+      i = Invitation.new(
+        sender_id: random_user.id,
+        receiver_id: User.last.id
+      )
+      i.save
+    end
+ 
+
+  
     render json: { message: 'Signed up sucessfully.' }
   end
 
