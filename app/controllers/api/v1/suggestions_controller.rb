@@ -24,7 +24,13 @@ class Api::V1::SuggestionsController < ApplicationController
 
     end
     test2222 = data.uniq 
-    render json: test2222
+    (9-test2222.length).times do|i|
+      u = User.all.find_by_id(rand(1..50))
+      guy = {owner_id: u.id, owner_username: u.username, owner_avatar_link: u.avatar_link}
+      guy[:users] = []
+      test2222.push(guy)
+    end
+    render json: test2222.uniq
   end
 
   # GET /suggestions/1
