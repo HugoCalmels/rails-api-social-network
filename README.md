@@ -43,7 +43,7 @@
       "password_confirmation": "newpassword"
   }
 }`
-7. Get user by email ` http://localhost:3000/api/v1/getUserByEmail/hugo@yahoo.fr`
+7. Get user by email ` http://localhost:3000/api/v1/getUserByEmail/megatest@yopmail.com`
 
 ### Posts
 
@@ -63,7 +63,7 @@
     "content":"this a new post content"
 }
 }`
-6. Delete last post ( because images upload was a mess ) `http://localhost:3000/api/v1/removePostDisplay` GET
+6. Delete last post `http://localhost:3000/api/v1/removePostDisplay` GET
 7. Get post per user `http://localhost:3000/api/v1/posts/getOnlySelectedUserPosts/page/0/<Username>` GET
 8. Get indexed posts `http://localhost:3000/api/v1/posts/page/0` GET
 9. Get all posts from one user `http://localhost:3000/api/v1/users/2/getAllPostImagesFromUser` GET
@@ -112,5 +112,5 @@
 9. Update user last_seen `http://localhost:3000/api/v1/updateLastSeen/113333` GET
 10. Get all usernames ` http://localhost:3000/api/v1/getAllUsernames` GET
 11. Get current_user friends including common_friendships ` http://localhost:3000/api/v1/users/1/common_friendships` GET
-12. Get current_user suggestions list ` http://localhost:3000/api/v1/users/59/suggestions` GET
+12. Get selected user suggestions list ` http://localhost:3000/api/v1/users/59/suggestions` GET
 13. Get selected user friends including common_friendships ` http://localhost:3000/api/v1/selectedUserCM/Merlin` GET
