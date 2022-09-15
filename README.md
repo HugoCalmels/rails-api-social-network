@@ -6,13 +6,13 @@
 
 ## Liste des routes
 
-*Utiliser le bearer token dans les authorisations de Postman ou Insomnia*
-*Utiliser `http://localhost:3000/` ou `https://clonebook-api.herokuapp.com/`
+- Utiliser le bearer token dans les authorisations de Postman ou Insomnia
+- Utiliser `http://localhost:3000/` ou `https://clonebook-api.herokuapp.com/`
 
 ### Authentification
 
 1. Register `http://localhost:3000/users` POST
-`{
+- `{
 "user": {
     "username": "megatest22222",
     "email":"megatest22222@yopmail.com",
