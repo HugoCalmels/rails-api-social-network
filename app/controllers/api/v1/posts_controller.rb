@@ -8,6 +8,7 @@ class Api::V1::PostsController < ApplicationController
       post.user_id.in?(friendsIds) || post.user_id == current_user.id
     end
     @postsTest2 = Kaminari.paginate_array(@posts.reverse()).page(params[:page]).per(5)
+    sortedPosts =  @postsTest2.sort {|a, b| a[:id] <=> b[:id]}
     render json: @postsTest2, include: [:likes, :user, :comments =>{:include =>:user}]
   end
 

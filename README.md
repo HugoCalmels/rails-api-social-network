@@ -9,6 +9,8 @@
 - Utiliser le bearer token dans les authorisations de Postman ou Insomnia
 - Utiliser `http://localhost:3000/` ou `https://clonebook-api.herokuapp.com/`
 
+La liste des commandes est commune aux URL de développement et de production, on peut récupérer la liste des utilisateurs avec par exemple `https://clonebook-api.herokuapp.com/api/v1/users` ou `http://localhost:3000/api/v1/users`, néamoins la majorité des fonctionnalités requièrent un bearer token ( càd d'être indentifié ).
+
 ### Authentification
 
 1. Register `http://localhost:3000/users` POST
