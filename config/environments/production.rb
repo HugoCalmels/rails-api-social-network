@@ -3,8 +3,9 @@ require "active_support/core_ext/integer/time"
 #Rails.application.routes.url_helpers.rails_blob_url(obi.logo, host: "https://www.example.com")
 
 Rails.application.routes.default_url_options = {
-  host: 'https://clonebook-api.herokuapp.com'
+  host: 'http://localhost:3001'
 }
+# production host : 'https://clonebook-api.herokuapp.com'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
