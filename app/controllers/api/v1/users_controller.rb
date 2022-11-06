@@ -12,14 +12,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def receiveRandomInvitations
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
-    puts "TESTTTTTTTTTT"
+
   end
 
 
