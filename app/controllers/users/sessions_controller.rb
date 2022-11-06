@@ -7,7 +7,7 @@ class Users::SessionsController < Devise::SessionsController
 
   
       if User.all.find_by(email:resource.email)
-        @test = User.all.find_by(email:resource.email)
+
         if resource.id.present?
           render json: { message: 'You are logged in.' }, status: :ok
         else 
