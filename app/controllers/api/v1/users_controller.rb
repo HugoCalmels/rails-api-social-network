@@ -51,12 +51,25 @@ class Api::V1::UsersController < ApplicationController
 
   def getUserByEmail
 
-    email = params[:email]+'.'+params[:format]
-    @test = User.where("email = ?", email)
+    if params[:format]
+      # the email may come without the @
+      email = params[:email].to_s+'.'+params[:format].to_s
+      @user = User.where("email = ?", email).first
+       if @user 
+        render json: @user
+       else
+        # if still couldnt find the user's email
+        render json: { error: 500}
+       end
+    else 
+      # if there is no @ we send error
+      render json: { error: 500}
+    end
 
-    @user = User.where("email = ?", email).first
-    render json: @user
 
+
+
+  
   end
 
   def suggestions
