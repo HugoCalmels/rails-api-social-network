@@ -11,7 +11,7 @@ class Api::V1::ContactController < ApplicationController
     contactDemand["email"] = params[:contact_demand][:email]
     contactDemand["name"] = params[:contact_demand][:name]
     contactDemand["content"] = params[:contact_demand][:content]
-    ContactMailer.contact(contactDemand)
+    ContactMailer.contact(contactDemand).deliver_now
     render json: {message: "contact demand sent"}
   end
 end
