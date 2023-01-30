@@ -32,7 +32,9 @@ Rails.application.routes.draw do
       post "createThumbnail", to: 'thumbnails#createThumbnail'
       get "latestThumbnail", to: 'thumbnails#latestThumbnail'
       get "getOnlySelectedUserPosts/:username", to: 'posts#getOnlySelectedUserPosts'
-    
+
+      post "contact", to: 'contact#contact'
+
       resources :posts do
         get 'page/:page', action: :index, on: :collection
         get "getOnlySelectedUserPosts/page/:page/:username", action: :getOnlySelectedUserPosts, on: :collection
