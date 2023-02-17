@@ -1,0 +1,2 @@
+class AvatarSeed < ApplicationRecord
+end

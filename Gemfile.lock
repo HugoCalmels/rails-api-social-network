@@ -155,6 +155,8 @@ GEM
     rack (2.2.3.1)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-static_fallback (1.0.4)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.6)
@@ -239,6 +241,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
+  rack-static_fallback
   rails (~> 6.1.5)
   rest-client
   spring

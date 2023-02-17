@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'mini_magick', '~> 4.11'
 ruby '3.0.0'
 gem 'faker'
+gem "rack-static_fallback"
 gem 'devise'
 gem 'devise-jwt', '~> 0.9.0'
 gem 'rack-cors'

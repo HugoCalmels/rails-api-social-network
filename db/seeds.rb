@@ -7,34 +7,52 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'rest-client'
+##include Rails.application.routes.url_helpers
 
 
-##
-heros = RestClient.get("https://api-images-seeder-rails.herokuapp.com/hero_images")
-heros_array = JSON.parse(heros)
-avatars = RestClient.get("https://api-images-seeder-rails.herokuapp.com/avatar_images")
-avatars_array = JSON.parse(avatars)
-posts = RestClient.get("https://api-images-seeder-rails.herokuapp.com/post_images")
-posts_array = JSON.parse(posts)
-## 
+domain = ""
+
+if Rails.env.production?
+  domain = "https://www.example.com" # remplacer "www.example.com" avec le nom de domaine en production
+else
+  domain = "http://localhost:3000" # remplacer "localhost:3000" avec le nom de domaine localhost utilisé pour le développement
+end
+
+avatar_url = File.open(File.join(Rails.root, "/app/assets/images/avatars/avatar#{1}.jpg"))
+
+
+avatars = {}
+heroes = {}
+posts = {}
+
+
+
+
+
 
 index3 = 0
 50.times do |index|
 
+  avatar_number = rand(1..10)
+  hero_number = rand(1..10)
+  avatar_number
   u = User.new(
     username: Faker::Name.unique.first_name,
     email: Faker::Internet.unique.email,
     password: "123123",
     password_confirmation: "123123",
-    avatar_link: avatars_array[index]["image_link"],
-    thumbnail_link: heros_array[index]["image_link"]
+    avatar_link: "#{domain}/images/avatars/avatar#{avatar_number}.jpg",
+    
+     thumbnail_link:"#{domain}/images/heroes/hero#{hero_number}.jpg",
+
   )
   u.skip_confirmation!
   u.save
   10.times do |index2|
+    post_number = rand(1..50)
     p = Post.new(
       content: Faker::Lorem.sentence(word_count: 50),
-      image_link: posts_array[index3]["image_link"] ,
+      image_link: "#{domain}/images/posts/post#{post_number}.jpg",
       user_id: u.id,
       author: u.username,
       has_to_be_displayed: false
