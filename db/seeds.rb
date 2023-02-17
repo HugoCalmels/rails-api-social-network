@@ -10,7 +10,7 @@
 domain = ""
 
 if Rails.env.production?
-  domain = "https://www.example.com" # remplacer "www.example.com" avec le nom de domaine en production
+  domain = "https://clonebook-api.herokuapp.com" # remplacer "www.example.com" avec le nom de domaine en production
 else
   domain = "http://localhost:3000" # remplacer "localhost:3000" avec le nom de domaine localhost utilisé pour le développement
 end
