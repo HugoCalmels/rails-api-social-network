@@ -6,9 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'rest-client'
-##include Rails.application.routes.url_helpers
-
 
 domain = ""
 
@@ -17,18 +14,6 @@ if Rails.env.production?
 else
   domain = "http://localhost:3000" # remplacer "localhost:3000" avec le nom de domaine localhost utilisé pour le développement
 end
-
-avatar_url = File.open(File.join(Rails.root, "/app/assets/images/avatars/avatar#{1}.jpg"))
-
-
-avatars = {}
-heroes = {}
-posts = {}
-
-
-
-
-
 
 index3 = 0
 50.times do |index|
